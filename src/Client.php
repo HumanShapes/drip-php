@@ -191,6 +191,24 @@ class Client
     }
 
     /**
+     * Requests the broadcasts (single campaigns) for the given account.
+     *
+     * @param array{status?:string} $params Set of arguments
+     *                          - status (optional)
+     * @return \Drip\ResponseInterface
+     * @throw \Drip\Exception\InvalidArgumentException
+     */
+    public function get_broadcasts($params)
+    {
+        if (isset($params['status']) && !in_array($params['status'], ['draft', 'scheduled', 'sent', 'all'])) {
+            throw new InvalidArgumentException("Invalid campaign status.");
+        }
+
+        return $this->make_request("{$this->account_id}/broadcasts", $params);
+    }
+
+    
+    /**
      * Requests the accounts for the given account.
      * Parses the response JSON and returns an array which contains: id, name, created_at etc
      *
