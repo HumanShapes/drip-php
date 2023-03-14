@@ -209,6 +209,18 @@ class Client
 
     
     /**
+     * Request a single broadcast
+     *
+     * @param int $brodcastId
+     * @return \Drip\ResponseInterface
+     * @throw \Drip\Exception\InvalidArgumentException
+     */
+    public function get_broadcast($broadcastId)
+    {
+        return $this->make_request("{$this->account_id}/broadcasts/{$broadcastId}");
+    }
+    
+    /**
      * Requests the accounts for the given account.
      * Parses the response JSON and returns an array which contains: id, name, created_at etc
      *
